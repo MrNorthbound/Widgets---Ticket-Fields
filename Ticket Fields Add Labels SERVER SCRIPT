@@ -8,12 +8,15 @@
 	if (!data.canRead) 
 		return;
 	
-	//Get the assignment group
+//Adding - Get the assignment group
 	var grpGR = new GlideRecord('sys_user_group');
 	grpGR.get(gr.assignment_group);
-	//Build manager object
+// End - Get the assignment group
+
+//Adding - Build manager object
 	var mgr = $sp.getField(grpGR, 'manager');
 	mgr.label = 'Group manager';
+//End - Build manager object
 
 	var agent = "";
 	var a = $sp.getField(gr, 'assigned_to');
@@ -21,16 +24,21 @@
 		agent = a.display_value;
 
 	var fields = $sp.getFields(gr, 'number,state,priority,sys_created_on');
-	//Added Assignment group
+	
+//Adding - Added Assignment group to "Fields"
 	if (gr.getValue("assignment_group"))
 		fields.push($sp.getField(gr, 'assignment_group'));
-	//Added Assignment Group manager
+// END - Added Assignment group to "Fields"
+
+//Adding - Added Assignment Group manager to "Fields"
 	if (mgr != null)
 		fields.push(mgr);
-	//Added Assigned to
+//END - Added Assignment Group manager to "Fields"
+
+//Adding - Added 'Assigned to' To "Fields"
 	if (a != null)
 		fields.push(a);
-	
+//END - Added 'Assigned to' To "Fields"
 	
 	if (gr.getValue("sys_mod_count") > 0)
 		fields.push($sp.getField(gr, 'sys_updated_on'));
